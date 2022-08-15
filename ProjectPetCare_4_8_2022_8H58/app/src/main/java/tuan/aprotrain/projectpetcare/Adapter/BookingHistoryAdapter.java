@@ -25,15 +25,13 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tuan.aprotrain.projectpetcare.R;
 import tuan.aprotrain.projectpetcare.entity.Booking;
-import tuan.aprotrain.projectpetcare.entity.Category;
-import tuan.aprotrain.projectpetcare.entity.Pet;
 
 public class BookingHistoryAdapter extends ArrayAdapter<Booking> {
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();;
     public BookingHistoryAdapter(Context context, List<Booking> bookingArrayList){
         super(context, R.layout.booking_histories_item,bookingArrayList);
     }
@@ -63,31 +61,33 @@ public class BookingHistoryAdapter extends ArrayAdapter<Booking> {
         }
 
         //get name
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        reference.child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {
+            //@RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String categoryName = null;
-                for (DataSnapshot categorySnapshot : snapshot.child("Categories").getChildren()){
-                    if(booking.getSelectedService().get(0).getCategoryId()
-                            ==categorySnapshot.getValue(Category.class).getCategoryId()){
-                        categoryName = categorySnapshot.getValue(Category.class).getCategoryName();
-                    }
-                }
+                String categoryName = "aaa";
+                int zzzz;
+//                for (DataSnapshot categorySnapshot : snapshot.getChildren()){
+//                    if(booking.getSelectedService().get(0).getCategoryId()
+//                            ==categorySnapshot.getValue(Category.class).getCategoryId()){
+//                        categoryName = categorySnapshot.getValue(Category.class).getCategoryName();
+//                    }
+//                }
+//
+//                String petName = null;
+//                for (DataSnapshot petSnapshot : snapshot.child("Pets").getChildren()){
+//                    if(booking.getPetId() == petSnapshot.getValue(Pet.class).getPetId()){
+//                        petName = petSnapshot.getValue(Pet.class).getPetName();
+//                    }
+//                }
 
-                String petName = null;
-                for (DataSnapshot petSnapshot : snapshot.child("Pets").getChildren()){
-                    if(booking.getPetId() == petSnapshot.getValue(Pet.class).getPetId()){
-                        petName = petSnapshot.getValue(Pet.class).getPetName();
-                    }
-                }
-
-                textViewCategory.setText(categoryName + " for "+petName);
+                //textViewCategory.setText(categoryName + " for "+petName);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                int xxx;
             }
         });
 
