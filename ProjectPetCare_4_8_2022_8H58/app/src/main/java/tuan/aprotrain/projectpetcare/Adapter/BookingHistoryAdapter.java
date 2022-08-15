@@ -29,23 +29,29 @@ import java.util.List;
 
 import tuan.aprotrain.projectpetcare.R;
 import tuan.aprotrain.projectpetcare.entity.Booking;
+import tuan.aprotrain.projectpetcare.entity.Category;
+import tuan.aprotrain.projectpetcare.entity.Pet;
 
 public class BookingHistoryAdapter extends ArrayAdapter<Booking> {
-    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();;
-    public BookingHistoryAdapter(Context context, List<Booking> bookingArrayList){
-        super(context, R.layout.booking_histories_item,bookingArrayList);
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+
+
+    public BookingHistoryAdapter(Context context, List<Booking> bookingArrayList) {
+        super(context, R.layout.booking_histories_item, R.id.tv_bookingId, bookingArrayList);
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Booking booking = getItem(position);
 
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.booking_histories_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.booking_histories_item, parent, false);
         }
         ImageView imageQRBooking = convertView.findViewById(R.id.imageQRBooking);
-        TextView textViewCategory = convertView.findViewById(R.id.textViewCategory);
+        TextView tv_category = convertView.findViewById(R.id.tv_category);
+        TextView tv_bookingId = convertView.findViewById(R.id.tv_bookingId);
         TextView tv_interval = convertView.findViewById(R.id.tv_duration);
         TextView tv_bookingPrice = convertView.findViewById(R.id.tv_bookingPrice);
         TextView tv_serviceCount = convertView.findViewById(R.id.tv_serviceCount);
@@ -59,42 +65,48 @@ public class BookingHistoryAdapter extends ArrayAdapter<Booking> {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+        reference = FirebaseDatabase.getInstance().getReference();
 
-        //get name
-
-        reference.child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {
-            //@RequiresApi(api = Build.VERSION_CODES.N)
+        reference.child("Pets").addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String categoryName = "aaa";
-                int zzzz;
-//                for (DataSnapshot categorySnapshot : snapshot.getChildren()){
-//                    if(booking.getSelectedService().get(0).getCategoryId()
-//                            ==categorySnapshot.getValue(Category.class).getCategoryId()){
-//                        categoryName = categorySnapshot.getValue(Category.class).getCategoryName();
-//                    }
-//                }
-//
-//                String petName = null;
-//                for (DataSnapshot petSnapshot : snapshot.child("Pets").getChildren()){
-//                    if(booking.getPetId() == petSnapshot.getValue(Pet.class).getPetId()){
-//                        petName = petSnapshot.getValue(Pet.class).getPetName();
-//                    }
-//                }
+                snapshot.getChildren().forEach(pets -> {
+                    if (pets.getValue(Pet.class).getPetId() == booking.getPetId()) {
+                        String petName = pets.getValue(Pet.class).getPetName();
+                        reference.child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                snapshot.getChildren().forEach(categories -> {
+                                    if (categories.getValue(Category.class).getCategoryId() == booking.getSelectedService().get(0).getCategoryId()) {
+                                        String serviceName = categories.getValue(Category.class).getCategoryName();
+                                        tv_category.setText(serviceName + " for " + petName);
+                                    }
+                                });
+                            }
 
-                //textViewCategory.setText(categoryName + " for "+petName);
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                int xxx;
+
             }
         });
 
-        tv_interval.setText(booking.getBookingStartDate() + " - "+booking.getBookingEndDate());
-
-        tv_bookingPrice.setText(booking.getTotalPrice()+"$");
-        tv_serviceCount.setText(booking.getSelectedService().size()+"services");
+        tv_bookingId.setText(booking.getBookingId());
+        tv_interval.setText(booking.getBookingStartDate() + " \n" + booking.getBookingEndDate());
+        tv_bookingPrice.setText(booking.getTotalPrice() + "$");
+        tv_serviceCount.setText(booking.getSelectedService().size() + "services");
         return super.getView(position, convertView, parent);
     }
+
+
 }

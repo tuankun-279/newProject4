@@ -238,11 +238,11 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     switch (snapshot.child("userRole").getValue(String.class)) {
                                         case "user":
-                                            startActivity(new Intent(LoginActivity.this, BookingHistoryActivity.class));
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                             //startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                             break;
                                         case "admin":
-                                            //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                                             break;
                                         default:
                                             break;

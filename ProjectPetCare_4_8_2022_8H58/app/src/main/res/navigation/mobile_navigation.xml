@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="tuan.aprotrain.projectpetcare.Fragment.share.ShareFragment"
-        android:label="Share"
-        tools:layout="@layout/fragment_share" />
+        android:id="@+id/nav_booking_history"
+        android:name="tuan.aprotrain.projectpetcare.Fragment.booking_history.BookingHistoryFragment"
+        android:label="@string/nav_booking_history"
+        tools:layout="@layout/fragment_booking_history" />
     <fragment
         android:id="@+id/nav_gallery"
         android:name="tuan.aprotrain.projectpetcare.Fragment.gallery.GalleryFragment"

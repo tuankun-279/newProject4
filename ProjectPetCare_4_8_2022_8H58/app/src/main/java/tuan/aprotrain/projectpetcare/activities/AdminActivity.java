@@ -1,19 +1,28 @@
 package tuan.aprotrain.projectpetcare.activities;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +32,7 @@ import tuan.aprotrain.projectpetcare.Adapter.PetManagerAdapter;
 import tuan.aprotrain.projectpetcare.Adapter.UserManagerAdapter;
 import tuan.aprotrain.projectpetcare.R;
 import tuan.aprotrain.projectpetcare.entity.Booking;
+import tuan.aprotrain.projectpetcare.entity.CaptureAct;
 import tuan.aprotrain.projectpetcare.entity.Pet;
 import tuan.aprotrain.projectpetcare.entity.Service;
 import tuan.aprotrain.projectpetcare.entity.User;
@@ -38,6 +48,8 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+
+        Button button = findViewById(R.id.logoutBtn);
 
         listView = findViewById(R.id.listView);
         usersList = new ArrayList<>();
@@ -137,12 +149,47 @@ public class AdminActivity extends AppCompatActivity {
                 });
             }
         });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(AdminActivity.this, LoginActivity.class));
+            }
+        });
 
 //        one=findViewById(R.id.clientsClick);
 //        two=findViewById(R.id.LayoutFollowing);
 //        three=findViewById(R.id.LayoutImpacted);
 //
 //        one.onTouchEvent(new )
-
+        final ImageView scan_QrCode = (ImageView) findViewById(R.id.scan_QrCode);
+        scan_QrCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scanCode();
+            }
+        });
     }
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLaucher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> barLaucher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+            builder.setTitle("Result");
+            builder.setMessage(result.getContents());
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).show();
+        }
+    });
 }

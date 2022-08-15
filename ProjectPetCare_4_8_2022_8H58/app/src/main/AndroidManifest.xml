@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".AlarmReceiver"
@@ -39,15 +40,6 @@
         <activity
             android:name=".activities.Pet.PetActivity"
             android:exported="false" />
-        <activity
-            android:name=".activities.BookingHistoryActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <service
             android:name=".AlarmService"
@@ -68,13 +60,16 @@
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false">
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".activities.AdminActivity"
-            android:exported="false">
-
-        </activity>
+        <activity
+            android:name=".activities.AdminActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".activities.BreedingActivity"
             android:exported="false" />
@@ -90,7 +85,11 @@
         <activity
             android:name=".activities.ImagePetActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".entity.CaptureAct"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

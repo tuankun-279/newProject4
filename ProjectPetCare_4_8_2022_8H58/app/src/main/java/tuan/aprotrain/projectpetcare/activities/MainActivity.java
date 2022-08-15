@@ -1,5 +1,6 @@
 package tuan.aprotrain.projectpetcare.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -9,7 +10,7 @@ import android.view.Menu;
 import tuan.aprotrain.projectpetcare.databinding.ActivityMainBinding;
 import tuan.aprotrain.projectpetcare.entity.Image;
 import tuan.aprotrain.projectpetcare.entity.Pet;
-import tuan.aprotrain.projectpetcare.Fragment.slideshow.SlideshowFragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -25,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_share)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_booking_history)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
 //        NavigationView navigationView = findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
 
 //        mAppBarConfiguration = new AppBarConfiguration.Builder(
 //                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_share)
@@ -280,9 +282,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_share:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_share, new SlideshowFragment()).commit();
+            case R.id.nav_booking_history:
+                NavOptions navOptionsShare = new NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_booking_history, true)
+                        .build();
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.nav_booking_history, null, navOptionsShare);
                 return true;
+            case R.id.nav_log_out:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, LoginActivity.class));
         }
 
         return false;

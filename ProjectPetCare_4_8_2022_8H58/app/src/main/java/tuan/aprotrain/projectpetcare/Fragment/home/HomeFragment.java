@@ -6,30 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import tuan.aprotrain.projectpetcare.Fragment.share.ShareFragment;
+import tuan.aprotrain.projectpetcare.Fragment.booking_history.BookingHistoryFragment;
 import tuan.aprotrain.projectpetcare.R;
 import tuan.aprotrain.projectpetcare.activities.BookingActivity;
 import tuan.aprotrain.projectpetcare.activities.LoginActivity;
 import tuan.aprotrain.projectpetcare.databinding.FragmentHomeBinding;
-import tuan.aprotrain.projectpetcare.databinding.FragmentShareBinding;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -40,8 +31,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -62,8 +51,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     TextView textView4;
 
-    public static ShareFragment newInstance() {
-        return new ShareFragment();
+    public static BookingHistoryFragment newInstance() {
+        return new BookingHistoryFragment();
     }
 
     @Override
@@ -87,7 +76,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         petHealth_Btn = root.findViewById(R.id.petHealth_Btn);
         petBurry_Btn = root.findViewById(R.id.petBurry_Btn);
 
-        buttonLogout = root.findViewById(R.id.buttonLogout);
+        //buttonLogout = root.findViewById(R.id.buttonLogout);
 
         petHotel_Btn.setOnClickListener(this);
         petSpa_Btn.setOnClickListener(this);
@@ -95,7 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         petBurry_Btn.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
-        textView4 = root.findViewById(R.id.textView4);
+       // textView4 = root.findViewById(R.id.textView4);
 
         //code cua kien
         imageSlider = root.findViewById(R.id.imageSlider);
