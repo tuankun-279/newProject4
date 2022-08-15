@@ -68,12 +68,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mReference = FirebaseDatabase.getInstance().getReference();
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 //        replaceFragment(new HomeFragment());
-
+        mReference = FirebaseDatabase.getInstance().getReference();
         recyclerView = findViewById(R.id.recyclerListPet);
 
         setSupportActionBar(binding.appBarMain.toolbar);

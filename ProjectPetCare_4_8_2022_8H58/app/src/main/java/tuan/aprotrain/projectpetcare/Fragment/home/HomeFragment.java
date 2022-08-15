@@ -101,19 +101,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //                mAuth.signOut();
 //            }
 //        });
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
-        if (signInAccount !=null){
-            textView4.setText(signInAccount.getEmail());
-        }
-
-
-        buttonLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            }
-        });
+//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+//        if (signInAccount !=null){
+//            textView4.setText(signInAccount.getEmail());
+//        }
+//
+//
+//        buttonLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getActivity(), LoginActivity.class));
+//            }
+//        });
         return root;
     }
     @Override
