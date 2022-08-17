@@ -5,7 +5,7 @@
         android:title="@string/menu_home"
         android:icon="@drawable/ic_camera"/>
     <item
-        android:id="@+id/action_gallery"
+        android:id="@+id/action_breeding"
         android:title="@string/menu_gallery"
         android:icon="@drawable/ic_gallery"/>
     <item

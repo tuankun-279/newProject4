@@ -23,6 +23,7 @@ import tuan.aprotrain.projectpetcare.entity.Booking;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -63,7 +64,31 @@ public class BookingHistoryFragment extends Fragment {
         View root = binding.getRoot();
 
         listViewBooking = root.findViewById(R.id.listViewBooking);
+        final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefresh);
 
+        getData();
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData(); // your code
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
+
+        bookingHistoryAdapter =
+                new BookingHistoryAdapter(getActivity(), bookingList);
+        int y = 0;
+//        getBooking().forEach(booking -> {
+//            System.out.println("Booking: " + getBooking());
+//        });
+        listViewBooking.setAdapter(bookingHistoryAdapter);
+        listViewBooking.setClickable(true);
+        return root;
+    }
+    public void getData(){
+        //bookingList.clear();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -80,18 +105,16 @@ public class BookingHistoryFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot bookingSnapshot) {
                                 try {
-                                    //bookingList.clear();
+                                    bookingList.clear();
                                     bookingSnapshot.getChildren().forEach(bookings -> {
                                         if (bookings.getValue(Booking.class).getPetId() == petId) {
                                             bookingList.add(bookings.getValue(Booking.class));
                                         }
                                     });
                                     bookingHistoryAdapter.notifyDataSetChanged();
-
                                 } catch (NumberFormatException e) {
                                     System.out.println("error: " + e.getMessage());
                                 }
-
                             }
 
                             @Override
@@ -108,15 +131,6 @@ public class BookingHistoryFragment extends Fragment {
 
             }
         });
-        bookingHistoryAdapter =
-                new BookingHistoryAdapter(getActivity(), bookingList);
-        int y = 0;
-//        getBooking().forEach(booking -> {
-//            System.out.println("Booking: " + getBooking());
-//        });
-        listViewBooking.setAdapter(bookingHistoryAdapter);
-        listViewBooking.setClickable(true);
-        return root;
     }
 
 }

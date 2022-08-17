@@ -17,14 +17,20 @@
         android:label="@string/nav_booking_history"
         tools:layout="@layout/fragment_booking_history" />
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="tuan.aprotrain.projectpetcare.Fragment.gallery.GalleryFragment"
+        android:id="@+id/nav_breeding"
+        android:name="tuan.aprotrain.projectpetcare.Fragment.breeding.BreedingFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_breeding" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="tuan.aprotrain.projectpetcare.Fragment.slideshow.SlideshowFragment"
         android:label="Slide Show"
         tools:layout="@layout/fragment_slide_show" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="tuan.aprotrain.projectpetcare.Fragment.gallery.GalleryFragment"
+        android:label="Gallery"
+        tools:layout="@layout/fragment_gallery" />
 </navigation>

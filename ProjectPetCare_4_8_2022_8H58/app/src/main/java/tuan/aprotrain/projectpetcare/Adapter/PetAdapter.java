@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +21,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
+import com.google.firebase.inappmessaging.FirebaseInAppMessagingClickListener;
+import com.google.firebase.inappmessaging.model.Action;
+import com.google.firebase.inappmessaging.model.ImageData;
+import com.google.firebase.inappmessaging.model.InAppMessage;
+import com.google.firebase.inappmessaging.model.MessageType;
+import com.google.firebase.inappmessaging.model.Text;
+import com.google.firebase.ktx.Firebase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 
@@ -199,23 +212,36 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+
                     reference.child("Users").child(pet.getUserId()).child("token").
                             addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     for (DataSnapshot userToken : snapshot.getChildren()) {
-                                        String token = userToken.getValue(String.class);
-                                        try {
-                                            FCMSend.pushNotification(parentContext,
-                                                    token,
-                                                    title, message);
-                                            receiveDialog(Gravity.CENTER, pet, FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                            Toast.makeText(parentContext, "Request sent", Toast.LENGTH_LONG).show();
+                                        String getToken = userToken.getValue(String.class);
+                                        FirebaseMessaging.getInstance().getToken()
+                                                .addOnCompleteListener(new OnCompleteListener<String>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<String> task) {
+                                                        String currentToken = task.getResult();
+                                                        //String token = task.getResult();
+                                                        System.out.println("Token: " + currentToken);
 
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                                                        if (!getToken.equals(currentToken)) {
+                                                            try {
+                                                                FCMSend.pushNotification(parentContext,
+                                                                        getToken,
+                                                                        title, message);
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
+
                                     }
+                                    Toast.makeText(parentContext, "Request sent", Toast.LENGTH_LONG).show();
                                 }
 
                                 @Override
@@ -303,12 +329,12 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
                                         token,
                                         title, message);
 
-                                Toast.makeText(parentContext, "Request sent", Toast.LENGTH_LONG).show();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+                        Toast.makeText(parentContext, "Request sent", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -317,4 +343,6 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
                     }
                 });
     }
+
+
 }

@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,12 +21,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 
 import androidx.annotation.NonNull;
@@ -46,9 +49,11 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -64,7 +69,7 @@ import tuan.aprotrain.projectpetcare.entity.Recycle;
 import tuan.aprotrain.projectpetcare.entity.Service;
 
 public class BookingActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    TextView nameService;
+    //TextView nameService;
     /*
       Phần khai báo cho adapter category
        */
@@ -79,7 +84,7 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
     private Activity activity;
     private SimpleDateFormat simpleDateFormat;
     private Calendar calendar;
-
+    String currentDateTime;
     /*
     Phần khai báo cho adapter của spinner chọn pet name và payment
      */
@@ -99,19 +104,30 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
     String idButton;
     String category;
     private Boolean isUpdating = false;
-
+    ImageButton ib_back_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
+
+        Toolbar toolbarTop = (Toolbar) findViewById(R.id.toolbar_top);
+        TextView mTitle = (TextView) toolbarTop.findViewById(R.id.toolbar_title);
+        toolbarTop.findViewById(R.id.ib_back_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BookingActivity.this,MainActivity.class));
+            }
+        });
+
+        mTitle.setText(category);
         // tuan
         reference = FirebaseDatabase.getInstance().getReference();
         //selectedService = new ArrayList<>();
         notePet = findViewById(R.id.notePet);
 
         idButton = getIntent().getStringExtra("ID_BUTTON");
-        nameService = findViewById(R.id.textServiceInfo);
+        //nameService = findViewById(R.id.textServiceInfo);
 
         spinnerPetName = findViewById(R.id.spnPetName);
         ArrayAdapter<String> petNameAdapter = new ArrayAdapter<>(BookingActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, getListPetName());
@@ -144,6 +160,7 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
 
         activity = this;
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
+        currentDateTime = simpleDateFormat.format(new Date());
         dateStart = (TextView) findViewById(R.id.appointment);
         dateStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +174,7 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
 
 
         if (idButton.equals("Homestay")) {
+            dateEnd.setVisibility(View.VISIBLE);
             simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.getDefault());
             dateEnd = (TextView) findViewById(R.id.endDateHotel);
             dateEnd.setOnClickListener(new View.OnClickListener() {
@@ -212,7 +230,7 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
                 String payment = spinnerPayment.getSelectedItem().toString().trim();
                 String address = spinnerAddress.getSelectedItem().toString().trim();
                 String note = notePet.getText().toString();
-                if (petName.isEmpty() || address.isEmpty() || payment.isEmpty() || timeStart.isEmpty() || timeEnd.isEmpty()) {
+                if (petName.equals("Choose Pet")|| timeStart.isEmpty() || timeEnd.isEmpty() || getCheckedService().size() == 0) {
                     Toast.makeText(BookingActivity.this, "All field are required", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -255,13 +273,40 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
             //dang bam vao end
             if (idButton.equals("Homestay")) {
                 if (BookingActivity.this.chooseDateStart) {
-                    //bam vao start
-                    dateStart.setText(simpleDateFormat.format(calendar.getTime()));
+                    try {
+                        Date dateC = simpleDateFormat.parse(recycle.CalculateDate(currentDateTime,180));
+                        if(dateC.compareTo(calendar.getTime())>0){
+                            Toast.makeText(BookingActivity.this, "Please set appointment 3 hour from now", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        dateStart.setText(simpleDateFormat.format(calendar.getTime()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    dateEnd.setText(simpleDateFormat.format(calendar.getTime()));
+                    try {
+                        Date date = simpleDateFormat.parse(recycle.CalculateDate(dateStart.getText().toString().trim(),180));
+                        if(date.compareTo(calendar.getTime())>0){
+                            Toast.makeText(BookingActivity.this, "Minimum 3 hour from appointment", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        dateEnd.setText(simpleDateFormat.format(calendar.getTime()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             } else {
-                dateStart.setText(simpleDateFormat.format(calendar.getTime()));
+                try {
+                    Date dateS = simpleDateFormat.parse(recycle.CalculateDate(currentDateTime,180));
+                    if(dateS.compareTo(calendar.getTime())>0){
+                        Toast.makeText(BookingActivity.this, "Please set appointment 3 hour from now", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    dateStart.setText(simpleDateFormat.format(calendar.getTime()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 startDate = simpleDateFormat.format(calendar.getTime());
                 long serviceTime = 0;
                 for (Service service : getCheckedService()) {
@@ -330,7 +375,7 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
         //Intent pass data
         System.out.println(idButton);
         category = idButton + " Services";
-        nameService.setText(category);
+        //nameService.setText(category);
         listCategory.add(category);
 
         List<Service> serviceList = new ArrayList<Service>();
@@ -468,4 +513,5 @@ public class BookingActivity extends AppCompatActivity implements AdapterView.On
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

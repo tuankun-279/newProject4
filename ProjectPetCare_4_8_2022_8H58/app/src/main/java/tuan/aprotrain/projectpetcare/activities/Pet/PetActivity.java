@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,18 +70,27 @@ public class PetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 isUpdating = true;
-                String PetName = editTextPetName.getText().toString();
-                String PetKind = editTextPetKind.getText().toString();
-                String PetSpecies = editTextPetSpecies.getText().toString();
-                String PetGender = editTextPetGender.getText().toString();
-                String PetBirth = editTextPetBirth.getText().toString();
-                Float PetHeight = Float.parseFloat(String.valueOf(editTextPetHeight.getText().toString()));
-                Float PetWeight = Float.parseFloat(String.valueOf(editTextPetWeight.getText().toString()));
-                String PetColor = editTextPetColor.getText().toString();
-                String PetIntact = editTextPetIntact.getText().toString();
-                String PetNote = editTextPetNote.getText().toString();
+                if (TextUtils.isEmpty(editTextPetName.getText().toString())|| TextUtils.isEmpty(editTextPetKind.getText().toString()) ||
+                        TextUtils.isEmpty(editTextPetSpecies.getText().toString()) || TextUtils.isEmpty(editTextPetGender.getText().toString())
+                        ||TextUtils.isEmpty(editTextPetBirth.getText().toString()) || TextUtils.isEmpty(editTextPetHeight.getText().toString())
+                        ||TextUtils.isEmpty(editTextPetWeight.getText().toString()) || TextUtils.isEmpty(editTextPetColor.getText().toString())
+                        ||TextUtils.isEmpty(editTextPetIntact.getText().toString())) {
+                    Toast.makeText(PetActivity.this, "All field are required", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    String PetName = editTextPetName.getText().toString();
+                    String PetKind = editTextPetKind.getText().toString();
+                    String PetSpecies = editTextPetSpecies.getText().toString();
+                    String PetGender = editTextPetGender.getText().toString();
+                    String PetBirth = editTextPetBirth.getText().toString();
+                    Float PetHeight = Float.parseFloat(String.valueOf(editTextPetHeight.getText().toString()));
+                    Float PetWeight = Float.parseFloat(String.valueOf(editTextPetBirth.getText().toString()));
+                    String PetColor = editTextPetColor.getText().toString();
+                    String PetIntact = editTextPetIntact.getText().toString();
+                    String PetNote = editTextPetNote.getText().toString();
 
-                PetAdds(PetName, PetKind, PetSpecies, PetGender, PetBirth, PetHeight, PetWeight, PetColor, PetIntact, PetNote);
+                    PetAdds(PetName, PetKind, PetSpecies, PetGender, PetBirth, PetHeight, PetWeight, PetColor, PetIntact, PetNote);
+                }
 
             }
         });

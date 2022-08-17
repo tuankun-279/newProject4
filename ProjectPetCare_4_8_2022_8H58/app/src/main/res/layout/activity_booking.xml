@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,21 +17,42 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textServiceInfo"
-            android:layout_width="match_parent"
+        <Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar_top"
             android:layout_height="wrap_content"
-            android:text="Service"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="#DAC400"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_width="match_parent"
+            android:minHeight="?android:attr/actionBarSize"
+            android:background="@drawable/gradient"
+            tools:ignore="MissingConstraints">
+
+            <ImageButton
+                android:id="@+id/ib_back_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Toolbar Title"
+                android:layout_gravity="center"
+                android:id="@+id/toolbar_title" />
+
+        </Toolbar>
+        <!--        <TextView-->
+        <!--            android:id="@+id/textServiceInfo"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Service"-->
+        <!--            android:textSize="30dp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:textColor="#DAC400"-->
+        <!--            android:gravity="center"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.501"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.0" />-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -42,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textServiceInfo">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_top">
 
 
             <Spinner
@@ -150,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="End Date Hotel"
+                android:text="End Time"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:visibility="visible"

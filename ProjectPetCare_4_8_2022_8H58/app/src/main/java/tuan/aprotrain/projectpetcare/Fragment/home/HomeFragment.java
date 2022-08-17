@@ -62,13 +62,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final DrawerLayout drawerLayout = root.findViewById(R.id.drawerLayout);
-        root.findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.END);
-            }
-        });
+//        final DrawerLayout drawerLayout = root.findViewById(R.id.drawerLayout);
+//        drawerLayout.findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                drawerLayout.openDrawer(GravityCompat.START);
+//            }
+//        });
+
         btnLogout = root.findViewById(R.id.btnLogout);
 
         petHotel_Btn = root.findViewById(R.id.petHotel_Btn);

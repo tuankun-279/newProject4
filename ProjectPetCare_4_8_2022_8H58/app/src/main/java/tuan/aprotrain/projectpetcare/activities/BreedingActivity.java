@@ -43,7 +43,7 @@ import tuan.aprotrain.projectpetcare.databinding.ActivityMainBinding;
 import tuan.aprotrain.projectpetcare.entity.Pet;
 
 public class BreedingActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+    //private ActivityMainBinding binding;
 
     private RecyclerView rv_pet_id;
     private PetAdapter petAdapter;
@@ -96,6 +96,7 @@ public class BreedingActivity extends AppCompatActivity {
         getListPetsFromRealTimeDataBase();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void getListPetsFromRealTimeDataBase() {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -79,11 +80,17 @@ public class ServiceActivity extends AppCompatActivity  {
             public void onClick(View view) {
                 isUpdating = true;
 
-                String CategoryName = spinnerCategoryName.getSelectedItem().toString();
-                String ServiceName = editTextServiceName.getText().toString().trim();
-                Float ServicePrice = Float.parseFloat(editTextServicePrice.getText().toString().trim());
-                Long ServiceTime = Long.parseLong(editTextServiceTime.getText().toString().trim());
-                ServiceAdd(CategoryName, ServiceName,ServicePrice,ServiceTime);
+                if (spinnerCategoryName.equals("Choose Category") || TextUtils.isEmpty(editTextServiceName.getText().toString()) ||
+                        TextUtils.isEmpty(editTextServicePrice.getText().toString()) || TextUtils.isEmpty(editTextServiceTime.getText().toString())) {
+                    Toast.makeText(ServiceActivity.this, "All field are required", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    String CategoryName = spinnerCategoryName.getSelectedItem().toString();
+                    String ServiceName = editTextServiceName.getText().toString().trim();
+                    Float ServicePrice = Float.parseFloat(editTextServicePrice.getText().toString().trim());
+                    Long ServiceTime = Long.parseLong(editTextServiceTime.getText().toString().trim());
+                    ServiceAdd(CategoryName, ServiceName, ServicePrice, ServiceTime);
+                }
 
             }
         });

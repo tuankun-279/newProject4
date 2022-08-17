@@ -31,6 +31,7 @@
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/activity_admin.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/activity_booking.xml" value="0.18541666666666667" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/activity_booking_history.xml" value="0.22" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/activity_breeding.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/activity_category.xml" value="0.3625" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/activity_custom_list_view.xml" value="0.33" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/activity_forgot_password.xml" value="0.18645833333333334" />
@@ -51,12 +52,14 @@
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/booking_histories_item.xml" value="0.45" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/booking_history_list_item.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/booking_list_item.xml" value="0.25" />
-        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/booking_services_item.xml" value="0.2" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/booking_services_item.xml" value="0.33" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/content_main.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_booking_history.xml" value="0.3625" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_breeding.xml" value="0.2" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_breeding2.xml" value="0.3625" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_gallery.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_home.xml" value="0.23222748815165878" />
-        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_setting.xml" value="0.1" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_setting.xml" value="0.18" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_share.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/fragment_slide_show.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/item_photos.xml" value="0.2" />
@@ -71,14 +74,19 @@
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/layout_item.xml" value="0.1" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/layout_navigation.xml" value="0.28160919540229884" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/layout_navigation_header.xml" value="0.22" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/layout_receive_dialog.xml" value="0.3625" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/layout_recive_dialog.xml" value="0.33" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/layout_selected_dropdown.xml" value="0.2" />
-        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/list_booking.xml" value="0.2" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/list_booking.xml" value="0.5" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/list_pet.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/list_user.xml" value="0.2" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/main_fragment_reminder.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/nav_header_main.xml" value="0.2" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/pet_information.xml" value="0.3625" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/pet_item_nav.xml" value="0.15219976218787157" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/photos_display_item.xml" value="0.2" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/toolbar_booking.xml" value="0.24947916666666667" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/toolbar_breeding.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/layout/toolbar_pet_uploading_image.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/menu/activity_main_drawer.xml" value="0.33" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3625" />
@@ -87,6 +95,7 @@
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/menu/navigation_menu.xml" value="0.2" />
         <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/menu/search_breeding_pet.xml" value="0.2" />
+        <entry key="..\:/ProjectPetCare_4_8_2022_8H58/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2465" />
         <entry key="..\:/Users/Le Quang Kien/Documents/Booking-main/ProjectPetCare_4_8_2022_8H58/app/src/main/res/drawable/background_button.xml" value="0.1395" />
         <entry key="..\:/Users/Le Quang Kien/Documents/Booking-main/ProjectPetCare_4_8_2022_8H58/app/src/main/res/drawable/bg_grey_corner_10.xml" value="0.1665" />
         <entry key="..\:/Users/Le Quang Kien/Documents/Booking-main/ProjectPetCare_4_8_2022_8H58/app/src/main/res/drawable/bg_white_corner.xml" value="0.1395" />

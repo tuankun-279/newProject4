@@ -11,11 +11,15 @@
         android:name=".AlarmReceiver"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/gigapet"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectPetCare">
+
+        <meta-data
+            android:name="firebase_inapp_messaging_auto_data_collection_enabled"
+            android:value="true" />
         <activity
             android:name=".activities.User.UserDeleteActivity"
             android:exported="false" />
@@ -69,10 +73,14 @@
         </activity>
         <activity
             android:name=".activities.AdminActivity"
-            android:exported="false"></activity>
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".activities.BreedingActivity"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:name=".activities.RegisterActivity"
             android:exported="false" />
